@@ -37,9 +37,9 @@ module.exports.run = async (bot, message, args) => {
             .setTimestamp()
 
             try{
-                message.channel.send({embed: mEmbed});
+                return message.channel.send({embed: mEmbed});
             } catch(e){
-                return message.channel.send("Something went wrong")
+                return message.channel.send("Something went wrong");
             }
           })
     
