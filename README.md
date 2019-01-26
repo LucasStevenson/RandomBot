@@ -1,2 +1,2 @@
 # RandomBot
-one of my first porjects using pretty basic javascript. its a discord bot
+one of my first projects using pretty basic javascript. its a discord bot
