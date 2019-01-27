@@ -75,3 +75,4 @@ typings/
 # FuseBox cache
 .fusebox/
 *.json
+commands/.DS_Store
