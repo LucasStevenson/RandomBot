@@ -12,27 +12,31 @@ module.exports.run = async (bot, message, args) => {
 }
 
    try {
-       let code = eval(codein);
-       let whatItIs = typeof code;
+      let code = eval(codein);
+      let whatItIs = typeof code;
 
-       if(typeof code !== "string")
-        code = require("util").inspect(code, { depth: 0 });
+      if(typeof code !== "string")
+      code = require("util").inspect(code, { depth: 0 });
 
-       let embed = new discord.RichEmbed()
-       .setAuthor('JavaScript Evaluate')
-       .setColor('00FF00')
-       .addField(':inbox_tray: Input', `\`\`\`js\n${codein}\`\`\``)
-       .addField(':outbox_tray: Output', `\`\`\`js\n${code}\n\`\`\``)
-       .addField(':dvd: Type', `\`\`\`${whatItIs}\n\`\`\``)
-       return message.channel.send(embed)
-   } catch(e) {
-       let eembed = new discord.RichEmbed()
-       .setAuthor('JavaScript Evaluate')
-       .setColor('FF0000')
-       .addField(':inbox_tray: Input', `\`\`\`js\n${codein}\`\`\``)
-       .addField(':outbox_tray: Output', `\`\`\`js\n${e}\n\`\`\``)
-       return message.channel.send(eembed)
-   }
+      let embed = new discord.RichEmbed()
+      .setAuthor('JavaScript Evaluate')
+      .addField(':inbox_tray: Input', `\`\`\`js\n${codein}\`\`\``)
+      .addField(':outbox_tray: Output', `\`\`\`js\n${code}\n\`\`\``)
+      if(code == "undefined"){
+        embed.setColor('FFA500')
+      } else {
+        embed.setColor('00FF00')
+        embed.addField(':dvd: Type', `\`\`\`${whatItIs}\n\`\`\``)
+      }
+      return message.channel.send(embed)
+  } catch(e) {
+      let eembed = new discord.RichEmbed()
+      .setAuthor('JavaScript Evaluate')
+      .setColor('FF0000')
+      .addField(':inbox_tray: Input', `\`\`\`js\n${codein}\`\`\``)
+      .addField(':outbox_tray: Output', `\`\`\`js\n${e}\n\`\`\``)
+      return message.channel.send(eembed)
+  }
 };
 
 module.exports.help = {

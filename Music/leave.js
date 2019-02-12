@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args, ops) => {
     fetched.queue = [];
     fetched.dispatcher.end();
 
-    message.channel.send("Disconnected");
+    //message.channel.send("Disconnected");
 }
 
 module.exports.help = {

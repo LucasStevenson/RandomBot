@@ -20,8 +20,8 @@ module.exports.run = async (bot, message, args) => {
 
     let bicon = bot.user.displayAvatarURL;
     let botembed = new discord.RichEmbed()
-    .setTitle(`${bot.user.username} Invite Link`)
-    .setURL('https://discordapp.com/api/oauth2/authorize?client_id=501135579476656148&permissions=8&scope=bot')
+    .setTitle(`${bot.user.username} Github Link`)
+    .setURL('https://github.com/LucasStevenson/RandomBot')
     .setColor(color)
     .setThumbnail(bicon)
     .addField("Created on", moment(bot.user.createdAt).format('llll'), true)

@@ -11,9 +11,8 @@ module.exports.run = async (bot, message, args) => {
     });
 
     let helpembed = new discord.RichEmbed()
-    .setTitle(`${bot.user.username} Github Link`)
-    .setDescription(`__To get the invite link, type **${botconfig.prefix}botinfo**__`)
-    .setURL('https://github.com/LucasStevenson/RandomBot')
+    .setTitle(`${bot.user.username} Invite Link`)
+    .setURL('https://discordapp.com/api/oauth2/authorize?client_id=501135579476656148&permissions=8&scope=bot')
     .setColor(color)
     .setThumbnail("https://cdn.discordapp.com/attachments/518593740433260565/530495328106053652/thinking_cropped.png")
     .addField(`Admin Commands (${cmds.admin.length})`, cmds.admin.sort().join(', '), true)

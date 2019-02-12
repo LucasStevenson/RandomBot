@@ -31,7 +31,13 @@ module.exports.run = async(bot, message, args, ops) => {
     let info = await ytdl.getInfo(args[0]);
     let data = ops.active.get(message.guild.id) || {}; //creating a new map for a specific guild
 
-    if(!data.connection) data.connection = await message.member.voiceChannel.join();
+    if(!data.connection) {
+        try{
+            data.connection = await message.member.voiceChannel.join();
+        } catch (e){
+            return message.channel.send("something went wrong when trying to join the vc");
+        };
+    };
     if(message.member.voiceChannel !== message.guild.me.voiceChannel) return message.channel.send("i only obey commands made in the same voice channel as me");
     if(!data.queue) data.queue = []; //if theres no queue, it creates an empty array
     data.guildID = message.guild.id; //guild id diff for every server
@@ -64,7 +70,15 @@ module.exports.run = async(bot, message, args, ops) => {
     function finish(bot, ops, dispatcher) {
         let fetched = ops.active.get(dispatcher.guildID);
 
-        fetched.queue.shift(); //gets rid fo the song that just ended
+        //after the song ends, checks how many people are in the call. if no one is in the call, it makes the queue nothing and leaves
+        if(message.guild.me.voiceChannel.members.filter(u => !u.user.bot).size < 1){
+            ops.active.delete(dispatcher.guildID); //get rid of the queue
+            message.guild.me.voiceChannel.leave(); //leave the vc
+            message.channel.send(`leaving voice call cuz no ones here`);
+            return;
+        };
+
+        fetched.queue.shift(); //gets rid of the song that just ended
 
         if(fetched.queue.length > 0){ //if theres an ACTUAl queue and theres songs after the one that just ended
             ops.active.set(dispatcher.guildID, fetched);
@@ -73,6 +87,7 @@ module.exports.run = async(bot, message, args, ops) => {
         } else { //if the song that ended was the last song or theres nothing after it
             ops.active.delete(dispatcher.guildID); //get rid of the queue
             message.guild.me.voiceChannel.leave(); //leave the vc
+            message.channel.send("left voice call");
         }
     }
     
