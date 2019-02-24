@@ -20,7 +20,7 @@ module.exports.run = async(bot, message, args, ops) => {
     if(!permissions.has('CONNECT')) return message.channel.send("i cant connect to your voice channel"); //bot has no perms to connect to vc
     if(!permissions.has('SPEAK')) return message.channel.send("what the hecc man, i hab no perms to speak in this call"); //bot has no perms to talk in vc
 
-    if(channels.includes(message.channel.id)) return message.channel.send("theres already an active search in this channel. if u wanna cancel that one type 11");
+    if(channels.includes(message.channel.id)) return message.channel.send("theres already an active search in this channel");
 
     search(args.join(" "), function(err, res){
         if(err) return message.channel.send("put in an input pl0x"); //no input
@@ -41,17 +41,17 @@ module.exports.run = async(bot, message, args, ops) => {
         .setAuthor(message.author.tag, message.author.displayAvatarURL)
         .setDescription(`*Choose a number between 1 - ${videos.length}*`)
         .addField("__Song selection__", `${resp}`)
-        .setFooter("Type in 11 to cancel this youtube search")
+        .setFooter("Say CANCEL to cancel this youtube search")
         .setColor(color)
         message.channel.send(mEmbed);
 
-        const filter = m => m.author.id === message.author.id && m.content <= videos.length+1 && m.content > 0; //message filter
+        const filter = m => m.author.id === message.author.id && m.content <= videos.length && m.content > 0 || m.content.toLowerCase() == "cancel"; //message filter
         const collector = message.channel.createMessageCollector(filter, {time: 60000}); //message collector with the filter conditions
 
         collector.videos = videos;
 
         collector.once('collect', function(m) { //plays song
-            if(m.content == '11'){
+            if(m.content.toLowerCase() == 'cancel'){
                 for (var i = 0; i < channels.length; i++){ 
                     if (channels[i] === message.channel.id) {
                       channels.splice(i, 1); 

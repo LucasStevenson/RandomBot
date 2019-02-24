@@ -9,14 +9,14 @@ module.exports.run = async (bot, message, args) => {
         luminosity: 'random',
         hue: 'random'
     });
-    var mention = message.mentions.members.first() || message.guild.members.get(args[0]); //if mentioned user
+    var mention = message.mentions.members.first() || message.guild.members.get(args[0]) || message.guild.members.find(x => x.user.username.toLowerCase() === args.join(' ').toLowerCase()); //if mentioned user
 
     //status emotes
     const online = bot.emojis.find(emoji => emoji.name === "online");
     const dnd = bot.emojis.find(emoji => emoji.name === "dnd");
     const idle = bot.emojis.find(emoji => emoji.name === "idle");
     const offline = bot.emojis.find(emoji => emoji.name === "offline");
-    const streaming = bot.emojis.find(emoji => emoji.name === "streaming");
+    const streaming = bot.emojis.find(emoji => emoji.name === "Streaming");
      
     //dates when author created and joined server
     var userCreated = moment(message.author.createdAt).format('llll');
@@ -26,7 +26,6 @@ module.exports.run = async (bot, message, args) => {
     let authorStatus = message.member.presence.status;
      
     if(!mention){ //if no one was mentioned
-    
       let uEmbed = new discord.RichEmbed()
 
       uEmbed.setTitle(`Information for ${message.author.username}`)

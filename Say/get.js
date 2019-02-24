@@ -4,7 +4,7 @@ module.exports.run = async (bot, message, args) => {
     try{
 
         if(message.author.id == '247979662314045441') return message.channel.send("no more get or record 4 u");
-        var mention = message.mentions.members.first() || message.guild.members.get(args[0]);
+        var mention = message.mentions.members.first() || message.guild.members.get(args[0]) || message.guild.members.find(x => x.user.username.toLowerCase() === args.join(' ').toLowerCase());
 
         if(mention == null){
             try{ //tries to fetch the last recorded msg by the user

@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args, ops) => {
     }
 
     let qEmbed = new discord.RichEmbed()
-    .setTitle("Server Queue")
+    .setAuthor("Server Queue", message.guild.iconURL)
     .setColor('8069f4')
     if(currentQueue.length < 2){
         qEmbed.setDescription(`**__Now playing__** \n[${currentSong.title}](${currentSong.url})\n\n**__Queue__**\nTheres only one song in this queue`)

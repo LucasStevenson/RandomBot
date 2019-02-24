@@ -3,9 +3,10 @@ const fs = require("fs");
 
 module.exports.run = async (bot, message, args) => {
     if(message.author.id == '247979662314045441') return message.channel.send("no more record or get 4 u");
-        improvedmessage = message.content.slice(8); //cuts off the status and the space that comes after it when it records the message
+        improvedmessage = args.join(' ');
 
         if(!improvedmessage) return message.channel.send("record a msg u fool");
+        if(improvedmessage.length > 1024) return message.channel.send("too many characters. trim it down a bit")
 
         if(!bot.whosmard[message.author.id]){ //if the user recorded has not recorded a msg yet, the bot will record it
         bot.whosmard[message.author.id] = { //records the message that the person wrote in whosmard.json
