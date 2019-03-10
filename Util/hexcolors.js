@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) => {
     .setDescription("Random hex codes")
     .addField(rColor + "'s hex code is", htmlColors.hex(rColor))
     .setColor(htmlColors.hex(rColor))
-    message.channel.send(rEmbed);
+    return message.channel.send(rEmbed);
   } else {
     let cEmbed = new discord.RichEmbed()
     .setDescription("Hex color codes")
@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, args) => {
     .setColor(htmlColors.hex(uColor))
     .setFooter(`Say ${botconfig.prefix}hex for a random hex color`)
     if(htmlColors.hex(uColor) == undefined) return message.channel.send("Cannot find " + "``" + uColor + "``" + "'s hex code \nMake sure the color is one word (ex. light blue is lightblue)")
-    message.channel.send(cEmbed);
+    return message.channel.send(cEmbed);
 }
 }
 

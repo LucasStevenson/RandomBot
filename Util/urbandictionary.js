@@ -28,7 +28,11 @@ module.exports.run = async (bot, message, args) => {
     if(res.tags.length > 0 && res.tags.join(', ').length < 1024) { //basically if there are tags that arent too long
         uEmbed.addField('Tags', res.tags.join(', '), true) //tags to the word input and makes a field
     }
-    message.channel.send(uEmbed)
+    try{
+        return message.channel.send(uEmbed)
+    } catch (e){
+        return message.channel.send("dunno wut just happened. try again");
+    }
 }
 
 module.exports.help = {

@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) => {
         }
         fs.writeFile("./whosmard.json", JSON.stringify(bot.whosmard, null, 4), err => {
             if(err) throw err;
-            message.channel.send("message recorded")
+            return message.channel.send("message recorded")
         })
         
         } else { //if the user ALREADY has a message recorded, one req will be checked. otherwise same as b4
@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) => {
         }
         fs.writeFile("./whosmard.json", JSON.stringify(bot.whosmard, null, 4), err => {
             if(err) throw err;
-            message.channel.send("message recorded")
+            return message.channel.send("message recorded")
         })
         
     }

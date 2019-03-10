@@ -1,6 +1,6 @@
 const discord = require('discord.js');
 const randomColor = require('randomcolor');
-const meme = require('memejs');
+const got = require('got');
 
 let cooldown = new Set();
 let cdseconds = 3;
@@ -28,21 +28,25 @@ module.exports.run = async (bot, message, args) => {
         }, cdseconds * 1000)
         //end of cooldown code
 
-        meme('dankmemes', function(mUrl){
-            let mEmbed = new discord.RichEmbed()
-            .setTitle(mUrl.title[0])
-            .setColor(color)
-            .setURL(mUrl.url[0])
-            .setImage(mUrl.url[0])
-            .setTimestamp()
 
-            try{
-                return message.channel.send({embed: mEmbed});
-            } catch(e){
-                return message.channel.send("Something went wrong");
-            }
-          })
+    let subreddits = ['dankmemes', 'wholesomememes'];
+    got(`https://www.reddit.com/r/${subreddits[Math.floor(Math.random() * subreddits.length)]}/random/.json?sort=top&t=day&limit=500`)
+        .then(response => {
+            let content = JSON.parse(response.body);
+            var image = content[0].data.children.filter(post => post.data.preview);
+            var pic = image[0].data.url;
+            let mEmbed = new discord.RichEmbed()
+                .setTitle(content[0].data.children[0].data.title)
+                .setURL("https://www.reddit.com" + content[0].data.children[0].data.permalink)
+                .setColor(color)
+                .setImage(pic)
+                .setFooter("/r/" + content[0].data.children[0].data.subreddit)
+            return message.channel.send(mEmbed);
     
+    }).catch(e => {
+        message.channel.send("something went wrong. too many requests?");
+        console.error(e);
+});
 
 }
 

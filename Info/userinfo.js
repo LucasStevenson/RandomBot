@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
         luminosity: 'random',
         hue: 'random'
     });
-    var mention = message.mentions.members.first() || message.guild.members.get(args[0]) || message.guild.members.find(x => x.user.username.toLowerCase() === args.join(' ').toLowerCase()); //if mentioned user
+    var mention = message.mentions.members.first() || message.guild.members.get(args[0]) || message.guild.members.find(x => x.user.username.toLowerCase() === args.join(' ').toLowerCase()) || message.guild.members.find(x => x.displayName.toLowerCase() === args.join(' ').toLowerCase()); //if mentioned user
 
     //status emotes
     const online = bot.emojis.find(emoji => emoji.name === "online");
@@ -51,7 +51,7 @@ module.exports.run = async (bot, message, args) => {
         uEmbed.setColor(color)
         uEmbed.addField("UserID", `${message.author.id}`, true)
         if(!message.member.nickname){
-            uEmbed.addField("Nickname", message.author.username, true)
+            uEmbed.addField("Nickname", "None", true)
           } else {
             uEmbed.addField("Nickname", message.member.nickname, true)
           }
@@ -94,7 +94,7 @@ module.exports.run = async (bot, message, args) => {
       userEmbed.setColor(color)
       userEmbed.addField("UserID", `${mention.id}`, true)
       if(!mention.nickname){
-          userEmbed.addField("Nickname", mention.user.username, true)
+          userEmbed.addField("Nickname", "None", true)
         } else {
           userEmbed.addField("Nickname", mention.nickname, true)
         }

@@ -30,7 +30,11 @@ module.exports.run = async(bot, message, args) => {
         .addField(`Humidity`, `${current.humidity}%`, true)
         .addField(`Standard time`, `UTC${location.timezone}`, true)
         .addField("Current Day", current.day, true)
-        return message.channel.send(wEmbed);
+        try{
+            return message.channel.send(wEmbed);
+        } catch (e){
+            return message.channel.send("wew wut happened here. something went wrong");
+        }
 
     })
 
