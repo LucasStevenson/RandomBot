@@ -29,7 +29,7 @@ module.exports.run = async (bot, message, args) => {
         //end of cooldown code
 
 
-    let subreddits = ['dankmemes', 'wholesomememes'];
+    let subreddits = ['dankmemes', 'memeeconomy'];
     got(`https://www.reddit.com/r/${subreddits[Math.floor(Math.random() * subreddits.length)]}/random/.json?sort=top&t=day&limit=500`)
         .then(response => {
             let content = JSON.parse(response.body);

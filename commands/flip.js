@@ -31,7 +31,7 @@ module.exports.run = async(bot, message, args) => {
     //defining vars
     flip = ["heads", "tails"]
     flipresult = flip[Math.floor(Math.random() * flip.length)];
-    message.channel.send("Flipping coin...").then(d_msg => { d_msg.delete(1750);});
+    message.channel.send("Flipping coin...").then(d_msg => { d_msg.delete(1750)});
     //end of defining vars
 
 

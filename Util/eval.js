@@ -15,8 +15,7 @@ module.exports.run = async (bot, message, args) => {
       let code = eval(codein);
       let whatItIs = typeof code;
 
-      if(typeof code !== "string")
-      code = require("util").inspect(code, { depth: 0 });
+      if(typeof code !== "string") code = require("util").inspect(code, { depth: 0 });
 
       let embed = new discord.RichEmbed()
       .setAuthor('JavaScript Evaluate')
